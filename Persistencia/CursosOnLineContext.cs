@@ -1,10 +1,11 @@
 // si DbContext se queda subrayado (con error) agregar la librería de debajo manualmente
 using Dominio;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Persistencia
 {
-    public class CursosOnLineContext : DbContext
+    public class CursosOnLineContext : IdentityDbContext<Usuario>
     {
         public CursosOnLineContext(DbContextOptions options) : base(options) {
 
@@ -12,6 +13,7 @@ namespace Persistencia
 
         // relacion muchos a muchos
         protected override void OnModelCreating(ModelBuilder modelBuilder){
+            base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<CursoInstructor>().HasKey(ci => new {ci.InstructorId, ci.CursoId});
         }
 

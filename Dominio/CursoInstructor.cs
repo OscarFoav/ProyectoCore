@@ -1,9 +1,10 @@
+using System;
 namespace Dominio
 {
     public class CursoInstructor
     {
-        public int CursoId { get; set; }
-        public int InstructorId { get; set; }
+        public Guid CursoId { get; set; }
+        public Guid InstructorId { get; set; }
 
         // relacion con Curso (1 a 1)
         public Curso Curso { get; set; }
