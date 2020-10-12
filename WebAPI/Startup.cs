@@ -27,6 +27,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Persistencia;
+using Persistencia.DapperConexion;
+using Persistencia.DapperConexion.Instructor;
 using Seguridad;
 using WebAPI.Middleware;
 
@@ -49,6 +51,12 @@ namespace WebAPI
                 opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
 
+            // Instanciar que se lance IFactoryConnection y IInstructor al arrancar el proyecto
+            services.AddOptions();
+
+            // Conexión a dapper
+            services.Configure<ConexionConfiguracion>(Configuration.GetSection("ConnectionStrings"));
+
             services.AddMediatR(typeof(Consulta.Manejador).Assembly);
 
             // La modificación de debajo es para incluir la librería FluentValidation
@@ -64,6 +72,9 @@ namespace WebAPI
             idenitifyBuilder.AddEntityFrameworkStores<CursosOnLineContext>();
             idenitifyBuilder.AddSignInManager<SignInManager<Usuario>>();
             services.TryAddSingleton<ISystemClock, SystemClock>();
+            // Instanciar que se lance IFactoryConnection y IInstructor al arrancar el proyecto
+            services.AddTransient<IFactoryConection, FactoryConnection>();
+            services.AddScoped<IInstructor, InstructorRepositorio>();
             
             // Incluir seguridad del Token (posterior a JWT)
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("Mi palabra secreta"));
@@ -80,6 +91,9 @@ namespace WebAPI
             services.AddScoped<IJwtGenerador, JwtGenerador>();
             services.AddScoped<IUsuarioSesion, UsuarioSesion>();
             services.AddAutoMapper(typeof(Consulta.Manejador));
+            // Instanciar que se lance IFactoryConnection y al arrancar el proyecto
+            services.AddTransient<IFactoryConection, FactoryConnection>();
+            services.AddScoped<IInstructor, InstructorRepositorio>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

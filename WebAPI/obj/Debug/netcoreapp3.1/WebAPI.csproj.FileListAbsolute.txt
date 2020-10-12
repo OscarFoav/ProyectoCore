@@ -79,3 +79,4 @@ D:\ProyectoCore\WebAPI\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Protocols
 D:\ProyectoCore\WebAPI\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 D:\ProyectoCore\WebAPI\bin\Debug\netcoreapp3.1\AutoMapper.dll
 D:\ProyectoCore\WebAPI\bin\Debug\netcoreapp3.1\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+D:\ProyectoCore\WebAPI\bin\Debug\netcoreapp3.1\Dapper.dll
