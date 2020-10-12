@@ -21,6 +21,9 @@ namespace Aplicacion.Cursos
             public DateTime? FechaPublicacion { get; set; }
 
             public List<Guid> ListaInstructor {get;set;}
+
+            public decimal Precio {get;set;}
+            public decimal Promocion {get;set;}
         }
 
         // Lógica de la validación con FluentValidation
@@ -60,6 +63,15 @@ namespace Aplicacion.Cursos
                         _context.CursoInstructor.Add(cursoInstructor);
                     }
                 }
+
+                // Insertar precio del curso nuevo
+                var precioEntidad = new Precio{
+                    CursoId = _cursoId,
+                    PrecioActual = request.Precio,
+                    Promocion = request.Promocion,
+                    PrecioId = Guid.NewGuid()
+                };
+                _context.Precio.Add(precioEntidad);
 
                 var valor = await _context.SaveChangesAsync();
                 // valor = 0 es que no hubo transacción
