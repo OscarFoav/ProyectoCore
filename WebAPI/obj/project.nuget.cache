@@ -1,9 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "hFnZxcLCneLXJwnyybUP7dzlYf3zwpr/qF8UAVNEVi1+5ZqnyCGnTYL0IwEYQCpiOkeDjCVsgVJ4qtCQCUYR7g==",
+  "dgSpecHash": "YP+qtrh/bj7zu7GbBaC+Kf9tX5g3Emtgi0+dMdAbfHL863KiKjHlF3Oo4HNp5v6XVa2ykJ+nAPjOMGzz/O2KfA==",
   "success": true,
   "projectFilePath": "D:\\ProyectoCore\\WebAPI\\WebAPI.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Oscar\\.nuget\\packages\\automapper\\8.1.1\\automapper.8.1.1.nupkg.sha512",
+    "C:\\Users\\Oscar\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\6.1.1\\automapper.extensions.microsoft.dependencyinjection.6.1.1.nupkg.sha512",
     "C:\\Users\\Oscar\\.nuget\\packages\\fluentvalidation\\8.6.2\\fluentvalidation.8.6.2.nupkg.sha512",
     "C:\\Users\\Oscar\\.nuget\\packages\\fluentvalidation.aspnetcore\\8.6.2\\fluentvalidation.aspnetcore.8.6.2.nupkg.sha512",
     "C:\\Users\\Oscar\\.nuget\\packages\\fluentvalidation.dependencyinjectionextensions\\8.6.2\\fluentvalidation.dependencyinjectionextensions.8.6.2.nupkg.sha512",

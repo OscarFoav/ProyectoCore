@@ -31,24 +31,24 @@ namespace WebAPI.Middleware
         }
         private async Task ManejadorExcepcionAsincrono(HttpContext context, Exception ex, ILogger<ManejadorErrorMiddleware> logger)
         {
-            object errores = null;
+            object errores1 = null;
             switch (ex)
             {
                 case ManejadorExcepcion me:
                     logger.LogError(ex, "Manejador Error");
-                    errores = me.Errores;
+                    errores1 = me.Errores;
                     context.Response.StatusCode = (int)me.Codigo;
                     break;
                 case Exception e:
                     logger.LogError(ex, "Error de Servidor");
-                    errores = string.IsNullOrWhiteSpace(e.Message) ? "Error" : e.Message;
+                    errores1 = string.IsNullOrWhiteSpace(e.Message) ? "Error" : e.Message;
                     context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
                     break;
             }
             context.Response.ContentType = "application/json";
-            if (errores != null)
+            if (errores1 != null)
             {
-                var resultados = JsonConvert.SerializeObject(new { errores });
+                var resultados = JsonConvert.SerializeObject(new { errores1 });
                 await context.Response.WriteAsync(resultados);
             }
         }

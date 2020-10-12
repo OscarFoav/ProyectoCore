@@ -77,3 +77,5 @@ D:\ProyectoCore\WebAPI\bin\Debug\netcoreapp3.1\System.IdentityModel.Tokens.Jwt.d
 D:\ProyectoCore\WebAPI\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 D:\ProyectoCore\WebAPI\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Protocols.dll
 D:\ProyectoCore\WebAPI\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+D:\ProyectoCore\WebAPI\bin\Debug\netcoreapp3.1\AutoMapper.dll
+D:\ProyectoCore\WebAPI\bin\Debug\netcoreapp3.1\AutoMapper.Extensions.Microsoft.DependencyInjection.dll

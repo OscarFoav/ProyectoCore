@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Aplicacion.Contratos;
 using Aplicacion.Cursos;
 using Aplicacion.Seguridad.TokenSeguridad;
+using AutoMapper;
 using Dominio;
 using FluentValidation.AspNetCore;
 using MediatR;
@@ -26,6 +27,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Persistencia;
+using Seguridad;
 using WebAPI.Middleware;
 
 namespace WebAPI
@@ -76,6 +78,8 @@ namespace WebAPI
 
             // JWT JSON Web Tokens
             services.AddScoped<IJwtGenerador, JwtGenerador>();
+            services.AddScoped<IUsuarioSesion, UsuarioSesion>();
+            services.AddAutoMapper(typeof(Consulta.Manejador));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

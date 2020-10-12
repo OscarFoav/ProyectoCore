@@ -1,8 +1,11 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using Aplicacion.ManejadorError;
+using Dominio;
 using FluentValidation;
 using MediatR;
 using Persistencia;
@@ -13,13 +16,15 @@ namespace Aplicacion.Cursos
     {
         public class Ejecuta : IRequest
         {
-            public int CursoId { get; set; }
+            public Guid CursoId { get; set; }
             public string Titulo { get; set; }
             public string Descripcion { get; set; }
 
             // la expresión DateTime? "fuerza" que un campo fecha permita nulos 
             // ,cosa que no es cierta por defecto, los campos Fecha no admiten nulos
             public DateTime? FechaPublicacion { get; set; }
+
+            public List<Guid> ListaInstructor {get;set;}
         }
         public class EjecutaValidacion : AbstractValidator<Ejecuta>
         {
@@ -52,6 +57,27 @@ namespace Aplicacion.Cursos
                 curso.Titulo = request.Titulo ?? curso.Titulo;
                 curso.Descripcion = request.Descripcion ?? curso.Descripcion;
                 curso.FechaPublicacion = request.FechaPublicacion ?? curso.FechaPublicacion;
+
+                if(request.ListaInstructor!=null){
+                    if(request.ListaInstructor.Count>0){
+                        /* 1º eliminar instructores actuales del curso en la BD*/
+                        var InstructoresBD = _context.CursoInstructor.Where(x => x.CursoId == request.CursoId).ToList();
+                        foreach(var instructorEliminar in InstructoresBD){
+                            _context.CursoInstructor.Remove(instructorEliminar);
+                        }
+                        /* fin proc. eliminar instructores*/
+
+                        /* 2º adjuntar los instructores que provienen del cliente*/
+                        foreach(var ids in request.ListaInstructor){
+                            var nuevoInstructor = new CursoInstructor{
+                                CursoId = request.CursoId,
+                                InstructorId = ids
+                            };
+                            _context.CursoInstructor.Add(nuevoInstructor);
+                        }
+                        /* Fin del proc. 2º */
+                    }
+                }
 
                 var resultado = await _context.SaveChangesAsync();
 
