@@ -9,34 +9,95 @@ namespace Persistencia.DapperConexion.Instructor
     public class InstructorRepositorio : IInstructor
     {
         private readonly IFactoryConection _factoryConnection;
-        public InstructorRepositorio(IFactoryConection factoryConection){
+        public InstructorRepositorio(IFactoryConection factoryConection)
+        {
             _factoryConnection = factoryConection;
         }
-        public Task<int> Actualiza(InstructorModel parametros)
+        public async Task<int> Actualiza(Guid instructorId, string nombre, string apellidos, string titulo)
         {
-            throw new NotImplementedException();
+            var storeProcedure = "usp_Instructor_Editar";
+            try
+            {
+                var connection = _factoryConnection.GetConnection();
+                var resultado = await connection.ExecuteAsync(
+                    storeProcedure,
+                    new
+                    {
+                        InstructorId = instructorId,
+                        Nombre = nombre,
+                        Apellidos = apellidos,
+                        Titulo = titulo
+                    },
+                    commandType: CommandType.StoredProcedure
+                );
+
+                _factoryConnection.CloseConnection();
+                return resultado;
+            }
+            catch (Exception e)
+            {
+                throw new Exception("No se ha podido guardar los datos del Instructor", e);
+            }
         }
 
-        public Task<int> Elimina(Guid id)
+        public async Task<int> Elimina(Guid id)
         {
-            throw new NotImplementedException();
+            var storeProcedure = "usp_Instructor_Elimina";
+            try{
+                var connection = _factoryConnection.GetConnection();
+                var resultado = await connection.ExecuteAsync(
+                    storeProcedure,
+                    new {
+                        InstructorId = id
+                    },
+                    commandType : CommandType.StoredProcedure
+                );
+                _factoryConnection.CloseConnection();
+                return resultado;
+            }catch(Exception e){
+                throw new Exception("No se ha podido eliminar el Instructor", e);
+            }
         }
 
-        public Task<int> Nuevo(InstructorModel parametros)
+        public async Task<int> Nuevo(string nombre, string apellidos, string titulo)
         {
-            throw new NotImplementedException();
+            var storeProdecure = "usp_Instructor_Nuevo";
+            try
+            {
+                var connection = _factoryConnection.GetConnection();
+                var resultado = await connection.ExecuteAsync(storeProdecure, new
+                {
+                    InstructorId = Guid.NewGuid(),
+                    Nombre = nombre,
+                    Apellidos = apellidos,
+                    Titulo = titulo
+                },
+                commandType: CommandType.StoredProcedure
+                );
+                _factoryConnection.CloseConnection();
+                return resultado;
+            }
+            catch (Exception e)
+            {
+                throw new Exception("No se ha podido guardar el nuevo Instructor", e);
+            }
         }
 
         public async Task<IEnumerable<InstructorModel>> ObtenerLista()
         {
             IEnumerable<InstructorModel> instructorList = null;
             var storeProcedure = "usp_Obtener_Instructores";
-            try{
+            try
+            {
                 var connection = _factoryConnection.GetConnection();
-                instructorList = await connection.QueryAsync<InstructorModel>(storeProcedure, null, commandType : CommandType.StoredProcedure);
-            }catch(Exception e){
+                instructorList = await connection.QueryAsync<InstructorModel>(storeProcedure, null, commandType: CommandType.StoredProcedure);
+            }
+            catch (Exception e)
+            {
                 throw new Exception("Error al consultar los datos", e);
-            }finally{
+            }
+            finally
+            {
                 _factoryConnection.CloseConnection();
             }
             return instructorList;
