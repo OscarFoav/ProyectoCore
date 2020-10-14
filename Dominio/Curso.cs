@@ -10,6 +10,7 @@ namespace Dominio
         public string Descripcion { get; set; }        
         public DateTime? FechaPublicacion { get; set; } // DateTime? significa que permitimos nulos en la fecha (por defecto no se permite)
         public byte[] FotoPortada {get;set;}
+        public DateTime? FechaCreacion {get;set;}
         // relacion con Precio (1 a 1)
         public Precio PrecioPromocion { get; set; }
         // relacion con Comentario (1 a muchos)
