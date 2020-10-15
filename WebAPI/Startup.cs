@@ -26,6 +26,7 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using Persistencia;
 using Persistencia.DapperConexion;
 using Persistencia.DapperConexion.Instructor;
@@ -75,6 +76,15 @@ namespace WebAPI
             // Instanciar que se lance IFactoryConnection y IInstructor al arrancar el proyecto
             services.AddTransient<IFactoryConection, FactoryConnection>();
             services.AddScoped<IInstructor, InstructorRepositorio>();
+
+            // Soportar Swagger
+            services.AddSwaggerGen( c=> {
+                c.SwaggerDoc("v1", new OpenApiInfo{
+                    Title = "Servicion de mantenimiento de cursos.",
+                    Version = "v1"
+                });
+                c.CustomSchemaIds(c=>c.FullName);
+            });
             
             // Incluir seguridad del Token (posterior a JWT)
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("Mi palabra secreta"));
@@ -120,6 +130,12 @@ namespace WebAPI
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+            });
+
+            // Soportar Swagger
+            app.UseSwagger();
+            app.UseSwaggerUI(c=> {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Cursos OnLine versión 1");
             });
         }
     }

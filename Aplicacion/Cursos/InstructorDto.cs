@@ -9,6 +9,7 @@ namespace Aplicacion.Cursos
         public string Apellidos {get;set;}
         public string Grado {get;set;}
         public byte[] FotoPerfil{get;set;}
+        public DateTime FechaCreacion {get;set;}
  
     }
 }
