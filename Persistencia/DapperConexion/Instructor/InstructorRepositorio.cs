@@ -15,7 +15,7 @@ namespace Persistencia.DapperConexion.Instructor
         }
         public async Task<int> Actualiza(Guid instructorId, string nombre, string apellidos, string titulo)
         {
-            var storeProcedure = "usp_Instructor_Editar";
+            var storeProcedure = "usp_instructor_editar";
             try
             {
                 var connection = _factoryConnection.GetConnection();
@@ -61,7 +61,7 @@ namespace Persistencia.DapperConexion.Instructor
 
         public async Task<int> Nuevo(string nombre, string apellidos, string titulo)
         {
-            var storeProdecure = "usp_Instructor_Nuevo";
+            var storeProdecure = "usp_instructor_nuevo";
             try
             {
                 var connection = _factoryConnection.GetConnection();
@@ -86,7 +86,7 @@ namespace Persistencia.DapperConexion.Instructor
         public async Task<IEnumerable<InstructorModel>> ObtenerLista()
         {
             IEnumerable<InstructorModel> instructorList = null;
-            var storeProcedure = "usp_Obtener_Instructores";
+            var storeProcedure = "oObtener_instructores";
             try
             {
                 var connection = _factoryConnection.GetConnection();
@@ -105,7 +105,7 @@ namespace Persistencia.DapperConexion.Instructor
 
         public async Task<InstructorModel> ObtenerPorId(Guid id)
         {
-            var storeProcedure = "usp_Obtener_Instructor_por_id";
+            var storeProcedure = "usp_obtener_instructor_por_id";
             InstructorModel instructor = null;
             try{
                 var connection = _factoryConnection.GetConnection();

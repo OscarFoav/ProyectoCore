@@ -30,6 +30,7 @@ using Microsoft.OpenApi.Models;
 using Persistencia;
 using Persistencia.DapperConexion;
 using Persistencia.DapperConexion.Instructor;
+using Persistencia.DapperConexion.Paginación;
 using Seguridad;
 using WebAPI.Middleware;
 
@@ -104,6 +105,8 @@ namespace WebAPI
             // Instanciar que se lance IFactoryConnection y al arrancar el proyecto
             services.AddTransient<IFactoryConection, FactoryConnection>();
             services.AddScoped<IInstructor, InstructorRepositorio>();
+            // Instanciar paginación
+            services.AddScoped<IPaginacion, PaginacionRepositorio>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
