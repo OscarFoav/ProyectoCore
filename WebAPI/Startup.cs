@@ -70,9 +70,13 @@ namespace WebAPI
             .AddFluentValidation(cfg => cfg.RegisterValidatorsFromAssemblyContaining<Nuevo>());
             // incluimos Core Identity <54> en WebAPI
             var builder = services.AddIdentityCore<Usuario>();
-            var idenitifyBuilder = new IdentityBuilder(builder.UserType, builder.Services);
-            idenitifyBuilder.AddEntityFrameworkStores<CursosOnLineContext>();
-            idenitifyBuilder.AddSignInManager<SignInManager<Usuario>>();
+            var identityBuilder = new IdentityBuilder(builder.UserType, builder.Services);
+            // Incluir roles
+            identityBuilder.AddRoles<IdentityRole>();
+            identityBuilder.AddClaimsPrincipalFactory<UserClaimsPrincipalFactory<Usuario, IdentityRole>>();
+
+            identityBuilder.AddEntityFrameworkStores<CursosOnLineContext>();
+            identityBuilder.AddSignInManager<SignInManager<Usuario>>();
             services.TryAddSingleton<ISystemClock, SystemClock>();
             // Instanciar que se lance IFactoryConnection y IInstructor al arrancar el proyecto
             services.AddTransient<IFactoryConection, FactoryConnection>();
@@ -81,7 +85,7 @@ namespace WebAPI
             // Soportar Swagger
             services.AddSwaggerGen( c=> {
                 c.SwaggerDoc("v1", new OpenApiInfo{
-                    Title = "Servicion de mantenimiento de cursos.",
+                    Title = "Servicio de mantenimiento de cursos.",
                     Version = "v1"
                 });
                 c.CustomSchemaIds(c=>c.FullName);
