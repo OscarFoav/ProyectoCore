@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Aplicacion.Instructores;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Persistencia.DapperConexion.Instructor;
 
@@ -10,6 +11,8 @@ namespace WebAPI.Controllers
 {
     public class InstructorController : MiControllerBase
     {
+        // Authorize limita a los usuarios con rol Admin el acceso a este método
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<ActionResult<List<InstructorModel>>> ObtenerInstructores(){
             return await Mediator.Send(new Consulta.Lista());

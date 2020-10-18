@@ -86,7 +86,7 @@ namespace Persistencia.DapperConexion.Instructor
         public async Task<IEnumerable<InstructorModel>> ObtenerLista()
         {
             IEnumerable<InstructorModel> instructorList = null;
-            var storeProcedure = "oObtener_instructores";
+            var storeProcedure = "usp_obtener_instructores";
             try
             {
                 var connection = _factoryConnection.GetConnection();
