@@ -19,15 +19,18 @@ export const obtenerUsuarioActual = (dispatch) => {
             resolve(response);
         })
     })
-}
+};
 
 export const actualizarUsuario = (usuario) => {
     return new Promise((resolve, eject) => {
         HttpCliente.put('/usuario', usuario).then(response => {
             resolve(response);
         })
-    })
-}
+        .catch(error => {
+            resolve(error.response);
+        })
+    });
+};
 
 export const loginUsuario = usuario => {
     return new Promise((resolve, eject) => {
