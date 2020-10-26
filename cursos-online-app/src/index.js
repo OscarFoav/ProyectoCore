@@ -3,10 +3,17 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import {initialState} from './contexto/initialState';
+import {StateProvider, stateProvider} from './contexto/store';
+import {mainReducer} from './contexto/reducers';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <StateProvider initialState={initialState} reducer ={mainReducer}>
+      <App />
+    </StateProvider>
+
+
   </React.StrictMode>,
   document.getElementById('root')
 );
