@@ -53,16 +53,13 @@ function App() {
         <MuithemeProvider theme={theme}>
           <AppNavBar />
           <Grid container>
-            <switch>
+            <Switch>
               <Route exact path="/auth/login" component={Login} />
-              <Route
-                exact
-                path="/auth/registrar"
-                component={RegistrarUsuario}
+              <Route exact path="/auth/registrar" component={RegistrarUsuario}
               />
               <Route exact path="/auth/perfil" component={PerfilUsuario} />
               <Route exact path="/" component={PerfilUsuario} />
-            </switch>
+            </Switch>
           </Grid>
         </MuithemeProvider>
       </Router>
